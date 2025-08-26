@@ -1,0 +1,13 @@
+<!-- src/main/resources/static/svg/tiles/bamboo/bamboo-9.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 70">
+    <rect x="2" y="2" width="46" height="66" rx="3" fill="#FFF9C4" stroke="#5D4037" stroke-width="2"/>
+    <path d="M15 15 Q20 10 25 15 Q20 20 15 15 Z" fill="#4CAF50"/>
+    <path d="M30 15 Q35 10 40 15 Q35 20 30 15 Z" fill="#4CAF50"/>
+    <path d="M15 25 Q20 20 25 25 Q20 30 15 25 Z" fill="#4CAF50"/>
+    <path d="M30 25 Q35 20 40 25 Q35 30 30 25 Z" fill="#4CAF50"/>
+    <path d="M25 35 Q30 30 35 35 Q30 40 25 35 Z" fill="#4CAF50"/>
+    <path d="M15 45 Q20 40 25 45 Q20 50 15 45 Z" fill="#4CAF50"/>
+    <path d="M30 45 Q35 40 40 45 Q35 50 30 45 Z" fill="#4CAF50"/>
+    <path d="M15 55 Q20 50 25 55 Q20 60 15 55 Z" fill="#4CAF50"/>
+    <path d="M30 55 Q35 50 40 55 Q35 60 30 55 Z" fill="#4CAF50"/>
+</svg>

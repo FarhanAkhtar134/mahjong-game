@@ -1,0 +1,5 @@
+<!-- src/main/resources/static/svg/tiles/dragon/dragons-white.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 70">
+    <rect x="2" y="2" width="46" height="66" rx="3" fill="#FFFFFF" stroke="#5D4037" stroke-width="2"/>
+    <rect x="15" y="25" width="20" height="20" rx="3" fill="#9E9E9E" stroke="#5D4037" stroke-width="1"/>
+</svg>

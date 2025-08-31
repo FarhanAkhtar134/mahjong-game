@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 
 const NewGame: React.FC = () => {
+  
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-300 to-purple-300">
       <h1 className="text-4xl font-bold text-white mb-4">Welcome to Digital Mahjong</h1>

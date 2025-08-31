@@ -10,7 +10,7 @@ const getRandomTiles = (num: number): TileData[] => {
   return shuffledTiles.slice(0, num);
 };
 
-const NewGame: React.FC = () => {
+const LoadedGame: React.FC = () => {
   const [deck, setDeck] = useState<TileData[]>(allTiles);
   const [playerHand, setPlayerHand] = useState<TileData[]>([]);
   const [selectedTile, setSelectedTile] = useState<TileData | null>(null);
@@ -20,18 +20,19 @@ const NewGame: React.FC = () => {
   const [hasDrawnTile, setHasDrawnTile] = useState<boolean>(false);
 
   useEffect(() => {
-    resetGame();
+    const loadedGame = localStorage.getItem("loadedGame");
+    if (loadedGame) {
+      const gameData = JSON.parse(loadedGame);
+      setPlayerHand(gameData.playerHand);
+      setPlayerScore(gameData.playerScore);
+      setBotScore(gameData.botScore);
+      setBotDiscardedTiles(gameData.botDiscardedTiles);
+      setDeck(allTiles); // Adjust if needed
+    } else {
+      // Handle the case where no game data is found
+      alert("No game loaded.");
+    }
   }, []);
-
-  const resetGame = () => {
-    setPlayerScore(100);
-    setBotScore(100);
-    setPlayerHand(getRandomTiles(5));
-    setBotDiscardedTiles([]);
-    setDeck(allTiles);
-    setHasDrawnTile(false);
-    setSelectedTile(null);
-  };
 
   const drawTile = () => {
     if (deck.length > 0) {
@@ -46,9 +47,9 @@ const NewGame: React.FC = () => {
 
   const handleSelectTile = (tile: TileData) => {
     if (selectedTile?.svgPath === tile.svgPath) {
-      setSelectedTile(null); // Deselect if the same tile is clicked
+      setSelectedTile(null);
     } else {
-      setSelectedTile(tile); // Select new tile
+      setSelectedTile(tile);
     }
   };
 
@@ -60,18 +61,7 @@ const NewGame: React.FC = () => {
       setPlayerScore((prevScore) => prevScore - selectedTile.value);
       setSelectedTile(null);
       botTurn();
-      setHasDrawnTile(false); // Reset draw state
-
-      const winnerMessage = checkWinner(
-        playerHand,
-        botDiscardedTiles,
-        playerScore,
-        botScore
-      );
-      if (winnerMessage) {
-        alert(winnerMessage);
-        resetGame();
-      }
+      setHasDrawnTile(false);
     }
   };
 
@@ -79,17 +69,6 @@ const NewGame: React.FC = () => {
     const botTile = getRandomTiles(1)[0];
     setBotDiscardedTiles((prev) => [...prev, botTile]);
     setBotScore((prevScore) => prevScore - botTile.value);
-
-    const winnerMessage = checkWinner(
-      playerHand,
-      botDiscardedTiles,
-      playerScore,
-      botScore
-    );
-    if (winnerMessage) {
-      alert(winnerMessage);
-      resetGame();
-    }
   };
 
   const saveGame = async () => {
@@ -99,26 +78,25 @@ const NewGame: React.FC = () => {
       botScore,
       botDiscardedTiles,
     };
-    console.log(gameState)
-  
+
     try {
-      const response = await fetch('http://localhost:8000/saveGame', {  
-        method: 'POST',
+      const response = await fetch("http://localhost:8000/saveGame", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(gameState),
       });
-  
+
       if (response.ok) {
         const data = await response.json();
         alert(data.message);
       } else {
-        alert('Failed to save game.');
+        alert("Failed to save game.");
       }
     } catch (error) {
-      console.error('Error saving game:', error);
-      alert('An error occurred while saving the game.');
+      console.error("Error saving game:", error);
+      alert("An error occurred while saving the game.");
     }
   };
 
@@ -130,13 +108,13 @@ const NewGame: React.FC = () => {
       justifyContent="center"
       height="100vh"
       sx={{
-        background: 'linear-gradient(to right, #2196F3, #E91E63)',
+        background: "linear-gradient(to right, #2196F3, #E91E63)",
         p: 4,
       }}
       p={4}
     >
       <Typography variant="h4" color="white" mb={4}>
-        New Game
+        Loaded Game
       </Typography>
 
       <Paper
@@ -213,4 +191,4 @@ const NewGame: React.FC = () => {
   );
 };
 
-export default NewGame;
+export default LoadedGame;
